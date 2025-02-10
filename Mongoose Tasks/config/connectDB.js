@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+// Function to make link between Mongoose and the Database
 const connectDB = async() => {
     try {
         await mongoose.connect(process.env.DB_URI);

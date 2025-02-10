@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 
+// Blueprint to our documents
 const personSchema = new mongoose.Schema({
 
     name: {
@@ -12,6 +13,7 @@ const personSchema = new mongoose.Schema({
 
 })
 
+// Model that will serve to create the documents
 const Person = mongoose.model("person", personSchema)
 
 module.exports = Person;

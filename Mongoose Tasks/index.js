@@ -1,20 +1,26 @@
+// Express require to make our routes and server
 const express = require("express")
 const app = express()
 
 require("dotenv").config()
 
-
+// Connection to the Database
 const connectDB = require("./config/connectDB")
 connectDB()
 
+
+// Importing the model
 const Person = require("./models/Person")
 
+//First document
 const newPerson = {
     name: "John",
     age: 25,
     favoriteFood: ["Pizza", "Pasta"]
 }
 
+//! CRUD OPERATIONS
+// I - Creation:
 async function createPerson(newP){
     try {
         const nouvelleP = new Person(newP)
@@ -42,6 +48,7 @@ async function createPeople(array){
 }
 // createPeople(arrayofPeople)
 
+// II - Read & Search:
 async function findPeople(){
     try {
         const peopleList = await Person.find()
@@ -74,6 +81,7 @@ async function findOneID(id){
 }
 // findOneID("67a7d7c3dfd9eff17f57d29d")
 
+// III - Update:
 async function UpdateAge(id, age){
     try {
         const updatedPerson = await Person.findByIdAndUpdate(id, {$set: {age: age}}, {new: true})
@@ -94,6 +102,7 @@ async function updateFood(id, food){
 }
 // updateFood("67a7d7c3dfd9eff17f57d29f", "Chawarma")
 
+// IV - Delete:
 async function removePerson(id){
     try {
         const personRemoved = await Person.findByIdAndDelete(id)
@@ -115,7 +124,7 @@ async function removeManyPeople(name){
 // This is a test function, it wasn't called.
 // removeManyPeople([{name: "John"}, {name: "Ahmed"}])
 
-// AGREAGATION FUNCTIONS
+//! AGREAGATION FUNCTIONS
 async function queryChain(){
     try {
         const result = await Person.find({favoriteFood: "Pizza"})
@@ -131,7 +140,7 @@ async function queryChain(){
 // queryChain()
 
 
-// ************************************************************************************************************************************
+// Server 
 PORT = process.env.PORT
 
 app.listen(PORT, (err) => {
